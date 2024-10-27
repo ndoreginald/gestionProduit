@@ -1,0 +1,60 @@
+﻿@model IEnumerable<Atelier1.Models.Employee>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1 class="display-4 text-center mb-4">Liste des Employés</h1>
+
+<div class="text-right mb-3">
+    <a class="btn btn-primary" asp-action="Create">Create New</a>
+</div>
+
+<form class="form-inline my-2 my-lg-0 d-flex justify-content-center" asp-action="Search" asp-controller="Employee">
+    <input class="form-control mr-sm-2" name="term" type="search" placeholder="Rechercher un employé..." aria-label="Search">
+    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Rechercher</button>
+</form>
+
+<table class="table table-bordered table-striped mt-4">
+    <thead class="thead-dark">
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.Id)</th>
+            <th>@Html.DisplayNameFor(model => model.Name)</th>
+            <th>@Html.DisplayNameFor(model => model.Departement)</th>
+            <th>@Html.DisplayNameFor(model => model.Salary)</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.Id)</td>
+                <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                <td>@Html.DisplayFor(modelItem => item.Departement)</td>
+                <td>@Html.DisplayFor(modelItem => item.Salary)</td>
+                <td>
+                    <a class="btn btn-sm btn-info" asp-action="Edit" asp-route-id="@item.Id">Modifier</a>
+                    <a class="btn btn-sm btn-primary" asp-action="Details" asp-route-id="@item.Id">Détails</a>
+                    <a class="btn btn-sm btn-danger" asp-action="Delete" asp-route-id="@item.Id">Supprimer</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div class="mt-4">
+    <h4 class="text-center">Informations sur les employés</h4>
+    <ul class="list-group mt-3">
+        <li class="list-group-item">Nombre d'employés : <span class="badge badge-primary">@ViewData["EmployeesCount"]</span></li>
+        <li class="list-group-item">Salaire Moyen : <span class="badge badge-success">@ViewData["SalaryAverage"]</span></li>
+        <li class="list-group-item">Salaire Max : <span class="badge badge-warning">@ViewData["MaxSalary"]</span></li>
+        <li class="list-group-item">Nombre d'employés du département HR : <span class="badge badge-info">@ViewData["HREmployeesCount"]</span></li>
+    </ul>
+
+    <br />
+    <div class="text-center mt-4">
+        <a class="btn btn-secondary" asp-action="Index">Afficher tous les employés</a>
+    </div>
+    <br />
+</div>
